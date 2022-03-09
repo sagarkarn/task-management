@@ -41,7 +41,7 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public String getAllTask(Model model) {
-        var allTask = taskRepo.findAll();
+        Iterable<Task> allTask = taskRepo.findAll();
         model.addAttribute("tasks", allTask);
         return "tasks";
     }
@@ -49,7 +49,7 @@ public class TaskController {
     @GetMapping("/task/{id}")
     public String getTask(@PathVariable("id") long id, Model model) {
 
-        var task = taskRepo.findById(id).get();
+        Task task = taskRepo.findById(id).get();
         System.out.println(task.getTaskDesc());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
