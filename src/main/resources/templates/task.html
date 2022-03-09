@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Task Create</title>
+
+    <!-- Custom fonts for this template-->
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul th:replace="fragments/sidebar:: sidebar"></ul>
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <div th:replace="fragments/header :: header"></div>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p th:text="${task.name}"></p>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <p th:text="${dateformatter.format(task.createdDate)}"></p>
+                        </div>
+                    </div>
+
+                    <div th:each="tdesc: ${task.taskDesc}">
+                        <div class="card mt-2">
+                            <div class="card-header bg-primary text-light">
+                                <p th:text="${dateformatter.format(tdesc.createdDate)}"></p>
+                            </div>
+                            <div class="card-body">
+                                <h4 th:text="${tdesc.solution}"></h4>
+                                <p th:text="${tdesc.description}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form action="#" th:action="@{/task/create}" th:method="POST" th:object="${taskDesc}">
+                        <input type="hidden" name="taskId" th:value="${task.id}">
+                        <div class="col-md-8 text-center mt-4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" placeholder="what you did?"
+                                        th:field="*{solution}" />
+                                </div>
+                                <div class="col-sm-12 mt-2">
+                                    <textarea type="text" class="form-control" th:field="*{description}"
+                                        aria-placeholder="Write summery"></textarea>
+                                </div>
+
+                                <div class="text-center col-sm-12 mt-2">
+                                    <button class="btn btn-primary" type="submit">Submit </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+</body>
+
+</html>
